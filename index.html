@@ -3,747 +3,1186 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Jermiah Booker — Frontend UI Engineer</title>
+
+<!-- SEO -->
+<title>Jermiah Booker | Frontend UI Engineer — React, JavaScript, Node.js</title>
+<meta name="description" content="Jermiah Booker is a Frontend UI Engineer based in Minnesota, building fast, accessible, and production-ready web apps with React, JavaScript, and Node.js. Open to remote roles.">
+<meta name="keywords" content="Jermiah Booker, Frontend Engineer, UI Engineer, React Developer, JavaScript, TypeScript, Node.js, Minnesota, Remote Developer, Portfolio">
+<meta name="author" content="Jermiah Booker">
+
+<!-- Open Graph / Social Preview -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://jermiah-booker-portfolio-website.vercel.app/">
+<meta property="og:title" content="Jermiah Booker | Frontend UI Engineer">
+<meta property="og:description" content="Building fast, accessible, production-ready interfaces with React & JavaScript. Open to remote frontend roles.">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  :root {
-    --bg: #0d0d0d;
-    --surface: #161616;
-    --border: #2a2a2a;
-    --accent: #a855f7;
-    --accent-dim: #7c3aed;
-    --text: #f0ede6;
-    --muted: #888;
-    --serif: 'DM Serif Display', Georgia, serif;
-    --mono: 'DM Mono', monospace;
-    --sans: 'Outfit', sans-serif;
-  }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: var(--sans);
-    font-weight: 300;
-    line-height: 1.7;
-    overflow-x: hidden;
-  }
-
-  /* GRID LINES BACKGROUND */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(168,85,247,0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(168,85,247,0.03) 1px, transparent 1px);
-    background-size: 60px 60px;
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  /* NAV */
-  nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1.25rem 3rem;
-    border-bottom: 1px solid var(--border);
-    background: rgba(13,13,13,0.85);
-    backdrop-filter: blur(12px);
-  }
-
-  .nav-logo {
-    font-family: var(--mono);
-    font-size: 0.85rem;
-    color: var(--accent);
-    letter-spacing: 0.08em;
-    text-decoration: none;
-  }
-
-  .nav-links {
-    display: flex;
-    gap: 2.5rem;
-    list-style: none;
-  }
-
-  .nav-links a {
-    font-family: var(--mono);
-    font-size: 0.78rem;
-    color: var(--muted);
-    text-decoration: none;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    transition: color 0.2s;
-  }
-
-  .nav-links a:hover { color: var(--accent); }
-
-  /* HERO */
-  .hero {
-    position: relative;
-    min-height: 100vh;
-    display: flex;
-    align-items: flex-end;
-    padding: 8rem 3rem 5rem;
-    z-index: 1;
-  }
-
-  .hero-content { max-width: 900px; }
-
-  .hero-tag {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-family: var(--mono);
-    font-size: 0.75rem;
-    color: var(--accent);
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    margin-bottom: 2rem;
-  }
-
-  .hero-tag::before {
-    content: '';
-    display: inline-block;
-    width: 24px;
-    height: 1px;
-    background: var(--accent);
-  }
-
-  .hero h1 {
-    font-family: var(--serif);
-    font-size: clamp(3.5rem, 9vw, 8rem);
-    line-height: 0.95;
-    font-weight: 400;
-    color: var(--text);
-    margin-bottom: 2.5rem;
-  }
-
-  .hero h1 em {
-    font-style: italic;
-    color: var(--accent);
-  }
-
-  .hero-desc {
-    max-width: 520px;
-    font-size: 1rem;
-    color: var(--muted);
-    line-height: 1.8;
-    margin-bottom: 3rem;
-  }
-
-  .hero-actions {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-    align-items: center;
-  }
-
-  .btn-primary {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    background: var(--accent);
-    color: #ffffff;
-    font-family: var(--mono);
-    font-size: 0.8rem;
-    font-weight: 500;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    text-decoration: none;
-    padding: 0.85rem 1.75rem;
-    transition: background 0.2s, transform 0.2s;
-  }
-
-  .btn-primary:hover { background: #b76ef9; transform: translateY(-2px); }
-
-  .btn-ghost {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    border: 1px solid var(--border);
-    color: var(--muted);
-    font-family: var(--mono);
-    font-size: 0.8rem;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    text-decoration: none;
-    padding: 0.85rem 1.75rem;
-    transition: border-color 0.2s, color 0.2s;
-  }
-
-  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
-
-  /* MARQUEE */
-  .marquee-wrap {
-    position: relative;
-    z-index: 1;
-    overflow: hidden;
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-    padding: 1rem 0;
-    background: var(--surface);
-  }
-
-  .marquee-track {
-    display: flex;
-    gap: 3rem;
-    animation: marquee 24s linear infinite;
-    width: max-content;
-  }
-
-  .marquee-item {
-    font-family: var(--mono);
-    font-size: 0.75rem;
-    color: var(--muted);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    white-space: nowrap;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
-
-  .marquee-item span {
-    color: var(--accent);
-    font-size: 0.6rem;
-  }
-
-  @keyframes marquee {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
-  }
-
-  /* SECTION */
-  section {
-    position: relative;
-    z-index: 1;
-    padding: 6rem 3rem;
-  }
-
-  .section-label {
-    font-family: var(--mono);
-    font-size: 0.72rem;
-    color: var(--accent);
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    margin-bottom: 1rem;
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-  }
-
-  .section-label::after {
-    content: '';
-    flex: 1;
-    max-width: 60px;
-    height: 1px;
-    background: var(--accent);
-    opacity: 0.4;
-  }
-
-  .section-title {
-    font-family: var(--serif);
-    font-size: clamp(2rem, 4vw, 3.5rem);
-    font-weight: 400;
-    line-height: 1.1;
-    margin-bottom: 4rem;
-    color: var(--text);
-  }
-
-  /* ABOUT */
-  .about-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: start;
-  }
-
-  .about-text p {
-    color: var(--muted);
-    line-height: 1.9;
-    margin-bottom: 1.5rem;
-  }
-
-  .about-text p strong { color: var(--text); font-weight: 400; }
-
-  .stat-row {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    border-left: 1px solid var(--border);
-    padding-left: 3rem;
-  }
-
-  .stat {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .stat-num {
-    font-family: var(--serif);
-    font-size: 3rem;
-    color: var(--accent);
-    line-height: 1;
-  }
-
-  .stat-label {
-    font-family: var(--mono);
-    font-size: 0.72rem;
-    color: var(--muted);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    margin-top: 0.25rem;
-  }
-
-  /* SKILLS */
-  .skills-section { background: var(--surface); }
-
-  .skills-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1px;
-    border: 1px solid var(--border);
-  }
-
-  .skill-cell {
-    padding: 1.75rem;
-    border: 1px solid var(--border);
-    transition: background 0.2s;
-  }
-
-  .skill-cell:hover { background: rgba(200,245,87,0.04); }
-
-  .skill-icon {
-    font-size: 1.5rem;
-    margin-bottom: 0.75rem;
-    display: block;
-  }
-
-  .skill-name {
-    font-family: var(--mono);
-    font-size: 0.82rem;
-    color: var(--text);
-    letter-spacing: 0.04em;
-    margin-bottom: 0.25rem;
-  }
-
-  .skill-type {
-    font-size: 0.72rem;
-    color: var(--muted);
-  }
-
-  /* PROJECTS */
-  .projects-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-    gap: 1px;
-    border: 1px solid var(--border);
-  }
-
-  .project-card {
-    background: var(--surface);
-    padding: 2rem;
-    border: 1px solid var(--border);
-    text-decoration: none;
-    color: inherit;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    transition: background 0.25s, border-color 0.25s;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .project-card::after {
-    content: '→';
-    position: absolute;
-    top: 1.5rem;
-    right: 1.5rem;
-    font-family: var(--mono);
-    font-size: 1rem;
-    color: var(--muted);
-    transition: color 0.2s, transform 0.2s;
-  }
-
-  .project-card:hover {
-    background: rgba(200,245,87,0.05);
-    border-color: var(--accent-dim);
-  }
-
-  .project-card:hover::after {
-    color: var(--accent);
-    transform: translate(2px, -2px);
-  }
-
-  .project-num {
-    font-family: var(--mono);
-    font-size: 0.68rem;
-    color: var(--muted);
-    letter-spacing: 0.1em;
-  }
-
-  .project-title {
-    font-family: var(--serif);
-    font-size: 1.4rem;
-    font-weight: 400;
-    color: var(--text);
-    line-height: 1.2;
-  }
-
-  .project-desc {
-    font-size: 0.88rem;
-    color: var(--muted);
-    line-height: 1.7;
-  }
-
-  .project-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-top: auto;
-  }
-
-  .tag {
-    font-family: var(--mono);
-    font-size: 0.68rem;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    padding: 0.3rem 0.65rem;
-    border: 1px solid var(--border);
-    color: var(--muted);
-  }
-
-  .project-card:hover .tag { border-color: rgba(200,245,87,0.25); }
-
-  /* CONTACT */
-  .contact-section { background: var(--surface); }
-
-  .contact-inner {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: start;
-  }
-
-  .contact-text p {
-    color: var(--muted);
-    line-height: 1.9;
-    margin-bottom: 2rem;
-  }
-
-  .contact-links {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  .contact-link {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    color: var(--muted);
-    text-decoration: none;
-    font-family: var(--mono);
-    font-size: 0.82rem;
-    letter-spacing: 0.04em;
-    padding: 1rem 1.25rem;
-    border: 1px solid var(--border);
-    transition: color 0.2s, border-color 0.2s;
-  }
-
-  .contact-link:hover { color: var(--accent); border-color: var(--accent-dim); }
-
-  .contact-link-icon { font-size: 1.1rem; }
-
-  /* FOOTER */
-  footer {
-    position: relative;
-    z-index: 1;
-    padding: 2rem 3rem;
-    border-top: 1px solid var(--border);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  footer p {
-    font-family: var(--mono);
-    font-size: 0.72rem;
-    color: var(--muted);
-    letter-spacing: 0.06em;
-  }
-
-  /* ANIMATIONS */
-  .fade-up {
-    opacity: 0;
-    transform: translateY(28px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
-  }
-
-  .fade-up.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /* MOBILE */
-  @media (max-width: 768px) {
-    nav { padding: 1rem 1.5rem; }
-    .nav-links { gap: 1.5rem; }
-    .hero { padding: 7rem 1.5rem 4rem; }
-    section { padding: 4rem 1.5rem; }
-    .about-grid, .contact-inner { grid-template-columns: 1fr; gap: 2.5rem; }
-    .stat-row { border-left: none; border-top: 1px solid var(--border); padding-left: 0; padding-top: 2rem; flex-direction: row; flex-wrap: wrap; gap: 2rem; }
-    .projects-grid { grid-template-columns: 1fr; }
-    footer { flex-direction: column; gap: 0.5rem; text-align: center; padding: 1.5rem; }
-  }
+/* ─── RESET & BASE ─────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+
+:root {
+  --bg:        #050508;
+  --bg2:       #0c0c14;
+  --surface:   #11111c;
+  --card:      #16162a;
+  --border:    #1e1e35;
+  --accent:    #7c3aed;
+  --accent2:   #a855f7;
+  --accent3:   #c084fc;
+  --glow:      rgba(124,58,237,0.18);
+  --text:      #f1f0f7;
+  --muted:     #8b8aa8;
+  --subtle:    #3d3c5a;
+  --sans:      'Inter', sans-serif;
+  --mono:      'Fira Code', monospace;
+  --radius:    12px;
+  --transition: 0.25s ease;
+}
+
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* Grid bg */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image:
+    linear-gradient(rgba(124,58,237,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(124,58,237,0.04) 1px, transparent 1px);
+  background-size: 64px 64px;
+  pointer-events: none; z-index: 0;
+}
+
+/* ─── NAV ──────────────────────────────────────────────────── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 1.1rem 3rem;
+  background: rgba(5,5,8,0.8);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-logo {
+  font-family: var(--mono);
+  font-size: 0.9rem;
+  color: var(--accent2);
+  text-decoration: none;
+  letter-spacing: 0.04em;
+}
+
+.nav-links { display: flex; gap: 2rem; list-style: none; }
+.nav-links a {
+  font-size: 0.82rem;
+  color: var(--muted);
+  text-decoration: none;
+  letter-spacing: 0.05em;
+  transition: color var(--transition);
+  font-family: var(--mono);
+}
+.nav-links a:hover { color: var(--accent2); }
+
+.nav-cta {
+  background: var(--accent);
+  color: #fff;
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  padding: 0.5rem 1.1rem;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: background var(--transition), transform var(--transition);
+}
+.nav-cta:hover { background: var(--accent2); transform: translateY(-1px); }
+
+/* ─── SECTIONS ─────────────────────────────────────────────── */
+section {
+  position: relative; z-index: 1;
+  padding: 6rem 3rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.section-eyebrow {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--accent2);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+  display: flex; align-items: center; gap: 0.6rem;
+}
+.section-eyebrow::after {
+  content: '';
+  display: inline-block;
+  width: 40px; height: 1px;
+  background: var(--accent);
+  opacity: 0.5;
+}
+
+.section-title {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-bottom: 3.5rem;
+}
+
+/* ─── HERO ─────────────────────────────────────────────────── */
+.hero {
+  min-height: 100vh;
+  display: flex; align-items: center;
+  padding-top: 5rem;
+  position: relative; z-index: 1;
+}
+
+/* Glow orbs */
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 15%; left: 55%;
+  width: 500px; height: 500px;
+  background: radial-gradient(ellipse, rgba(124,58,237,0.15) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.hero-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 3rem;
+  width: 100%;
+}
+
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  font-family: var(--mono); font-size: 0.72rem;
+  color: var(--accent2);
+  border: 1px solid rgba(168,85,247,0.3);
+  border-radius: 999px;
+  padding: 0.35rem 1rem;
+  margin-bottom: 2rem;
+  animation: fadeDown 0.6s ease both;
+}
+
+.hero-badge::before {
+  content: '';
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--accent2);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%,100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.8); }
+}
+
+.hero h1 {
+  font-size: clamp(3rem, 8vw, 6.5rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  margin-bottom: 1.5rem;
+  animation: fadeUp 0.7s 0.1s ease both;
+}
+
+.hero h1 .line2 {
+  background: linear-gradient(135deg, var(--accent2) 0%, var(--accent3) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-sub {
+  font-size: clamp(1rem, 2vw, 1.15rem);
+  color: var(--muted);
+  max-width: 560px;
+  line-height: 1.8;
+  margin-bottom: 2.5rem;
+  animation: fadeUp 0.7s 0.2s ease both;
+}
+
+.hero-sub strong { color: var(--text); font-weight: 500; }
+
+.hero-actions {
+  display: flex; gap: 1rem; flex-wrap: wrap;
+  margin-bottom: 3.5rem;
+  animation: fadeUp 0.7s 0.3s ease both;
+}
+
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  background: var(--accent);
+  color: #fff;
+  font-family: var(--mono); font-size: 0.82rem;
+  font-weight: 500;
+  padding: 0.85rem 1.75rem;
+  border-radius: var(--radius);
+  text-decoration: none;
+  transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+  box-shadow: 0 0 0 0 var(--glow);
+}
+.btn-primary:hover {
+  background: var(--accent2);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px var(--glow);
+}
+
+.btn-ghost {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  font-family: var(--mono); font-size: 0.82rem;
+  padding: 0.85rem 1.75rem;
+  border-radius: var(--radius);
+  text-decoration: none;
+  transition: border-color var(--transition), color var(--transition);
+}
+.btn-ghost:hover { border-color: var(--accent2); color: var(--accent2); }
+
+.hero-stats {
+  display: flex; gap: 3rem; flex-wrap: wrap;
+  animation: fadeUp 0.7s 0.4s ease both;
+}
+
+.hero-stat { display: flex; flex-direction: column; }
+
+.hero-stat-num {
+  font-size: 2rem; font-weight: 700;
+  color: var(--accent2);
+  font-family: var(--mono);
+  line-height: 1;
+}
+
+.hero-stat-label {
+  font-size: 0.75rem; color: var(--muted);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-top: 0.25rem;
+}
+
+/* ─── MARQUEE ───────────────────────────────────────────────── */
+.marquee-section {
+  position: relative; z-index: 1;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+  overflow: hidden;
+  padding: 1rem 0;
+}
+
+.marquee-track {
+  display: flex; gap: 2.5rem;
+  width: max-content;
+  animation: marquee 30s linear infinite;
+}
+
+.marquee-item {
+  font-family: var(--mono); font-size: 0.72rem;
+  color: var(--muted); letter-spacing: 0.1em;
+  text-transform: uppercase; white-space: nowrap;
+  display: flex; align-items: center; gap: 0.75rem;
+}
+.marquee-item span { color: var(--accent); font-size: 0.55rem; }
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* ─── ABOUT ─────────────────────────────────────────────────── */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: start;
+}
+
+.about-text p {
+  color: var(--muted); line-height: 1.9;
+  margin-bottom: 1.4rem; font-size: 0.97rem;
+}
+.about-text p strong { color: var(--text); font-weight: 500; }
+
+.about-tags {
+  display: flex; flex-wrap: wrap; gap: 0.5rem;
+  margin-top: 1.5rem;
+}
+
+.about-tag {
+  font-family: var(--mono); font-size: 0.72rem;
+  color: var(--accent2);
+  border: 1px solid rgba(168,85,247,0.25);
+  border-radius: 999px;
+  padding: 0.3rem 0.8rem;
+  background: rgba(124,58,237,0.06);
+}
+
+.about-right { display: flex; flex-direction: column; gap: 1.25rem; }
+
+.about-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.4rem;
+  transition: border-color var(--transition), transform var(--transition);
+}
+.about-card:hover { border-color: var(--accent); transform: translateX(4px); }
+
+.about-card-icon { font-size: 1.3rem; margin-bottom: 0.6rem; display: block; }
+.about-card-title { font-size: 0.9rem; font-weight: 600; margin-bottom: 0.3rem; }
+.about-card-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.6; }
+
+/* ─── TECH STACK ────────────────────────────────────────────── */
+.tech-section { background: var(--bg2); }
+
+.tech-categories {
+  display: flex; flex-direction: column; gap: 2.5rem;
+}
+
+.tech-category-label {
+  font-family: var(--mono); font-size: 0.68rem;
+  color: var(--muted); text-transform: uppercase;
+  letter-spacing: 0.12em; margin-bottom: 1rem;
+}
+
+.tech-pills {
+  display: flex; flex-wrap: wrap; gap: 0.65rem;
+}
+
+.tech-pill {
+  display: flex; align-items: center; gap: 0.5rem;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.55rem 1rem;
+  font-size: 0.82rem; font-weight: 500;
+  transition: border-color var(--transition), background var(--transition), transform var(--transition);
+  cursor: default;
+}
+.tech-pill:hover {
+  border-color: var(--accent2);
+  background: rgba(124,58,237,0.08);
+  transform: translateY(-2px);
+}
+.tech-pill .pill-icon { font-size: 1rem; }
+.tech-pill .pill-level {
+  font-family: var(--mono); font-size: 0.62rem;
+  color: var(--muted); margin-left: 0.25rem;
+}
+
+/* ─── PROJECTS ──────────────────────────────────────────────── */
+.projects-section { background: var(--bg); }
+
+/* FLAGSHIP */
+.flagship {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  overflow: hidden;
+  margin-bottom: 3rem;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+.flagship:hover {
+  border-color: var(--accent);
+  box-shadow: 0 0 40px rgba(124,58,237,0.1);
+}
+
+.flagship-header {
+  background: linear-gradient(135deg, #1a0a3a 0%, #0f0f1e 100%);
+  padding: 3rem;
+  display: flex; justify-content: space-between; align-items: flex-start;
+  flex-wrap: wrap; gap: 1.5rem;
+}
+
+.flagship-badge {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  font-family: var(--mono); font-size: 0.68rem;
+  color: var(--accent2);
+  border: 1px solid rgba(168,85,247,0.3);
+  border-radius: 999px;
+  padding: 0.25rem 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.flagship-title {
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.75rem;
+}
+
+.flagship-desc {
+  font-size: 0.95rem; color: var(--muted);
+  max-width: 520px; line-height: 1.8;
+}
+
+.flagship-links { display: flex; gap: 0.75rem; }
+
+.flagship-body { padding: 2.5rem; }
+
+.flagship-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 2rem; margin-bottom: 2rem;
+}
+
+.flagship-block-title {
+  font-family: var(--mono); font-size: 0.7rem;
+  color: var(--accent2); text-transform: uppercase;
+  letter-spacing: 0.1em; margin-bottom: 0.9rem;
+}
+
+.feature-list { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+.feature-list li {
+  display: flex; align-items: flex-start; gap: 0.6rem;
+  font-size: 0.85rem; color: var(--muted); line-height: 1.5;
+}
+.feature-list li::before {
+  content: '▸';
+  color: var(--accent2); flex-shrink: 0; margin-top: 0.1rem;
+}
+
+.flagship-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+
+.tag {
+  font-family: var(--mono); font-size: 0.68rem;
+  color: var(--muted); letter-spacing: 0.05em;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.25rem 0.6rem;
+  transition: border-color var(--transition), color var(--transition);
+}
+
+.flagship:hover .tag { border-color: rgba(168,85,247,0.3); }
+
+.screenshot-placeholder {
+  background: var(--surface);
+  border: 2px dashed var(--border);
+  border-radius: var(--radius);
+  padding: 2.5rem;
+  text-align: center;
+  color: var(--muted);
+  font-family: var(--mono); font-size: 0.8rem;
+  line-height: 1.8;
+  margin-top: 1.5rem;
+}
+.screenshot-placeholder strong { color: var(--accent2); display: block; margin-bottom: 0.4rem; }
+
+/* PROJECT GRID */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.25rem;
+}
+
+.project-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.75rem;
+  display: flex; flex-direction: column; gap: 1rem;
+  text-decoration: none; color: inherit;
+  transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition);
+  position: relative;
+}
+.project-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(124,58,237,0.1);
+}
+
+.project-card-num {
+  font-family: var(--mono); font-size: 0.65rem;
+  color: var(--subtle); letter-spacing: 0.1em;
+}
+
+.project-card-title {
+  font-size: 1.1rem; font-weight: 600;
+  line-height: 1.2; letter-spacing: -0.01em;
+}
+
+.project-card-desc {
+  font-size: 0.83rem; color: var(--muted);
+  line-height: 1.7; flex: 1;
+}
+
+.project-card-built {
+  font-size: 0.78rem; color: var(--muted);
+  line-height: 1.6;
+  border-top: 1px solid var(--border);
+  padding-top: 0.9rem;
+}
+.project-card-built strong {
+  font-family: var(--mono); font-size: 0.68rem;
+  color: var(--accent2); text-transform: uppercase;
+  letter-spacing: 0.08em; display: block; margin-bottom: 0.3rem;
+}
+
+.project-card-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+
+.project-card-links {
+  display: flex; gap: 0.6rem;
+  margin-top: auto;
+}
+
+.project-link {
+  font-family: var(--mono); font-size: 0.72rem;
+  color: var(--muted);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.3rem 0.7rem;
+  text-decoration: none;
+  transition: border-color var(--transition), color var(--transition);
+}
+.project-link:hover { border-color: var(--accent2); color: var(--accent2); }
+
+/* ─── FLAGSHIP CONCEPT ──────────────────────────────────────── */
+.concept-section { background: var(--bg2); }
+
+.concept-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 3rem;
+  position: relative;
+  overflow: hidden;
+}
+.concept-card::before {
+  content: '';
+  position: absolute; top: -80px; right: -80px;
+  width: 300px; height: 300px;
+  background: radial-gradient(ellipse, rgba(124,58,237,0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.concept-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.concept-block {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.4rem;
+}
+.concept-block-icon { font-size: 1.5rem; margin-bottom: 0.6rem; display: block; }
+.concept-block-title { font-size: 0.9rem; font-weight: 600; margin-bottom: 0.4rem; }
+.concept-block-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.6; }
+
+/* ─── CONTACT ───────────────────────────────────────────────── */
+.contact-section {
+  background: var(--bg2);
+  text-align: center;
+}
+
+.contact-inner { max-width: 640px; margin: 0 auto; }
+
+.contact-pitch {
+  font-size: 1rem; color: var(--muted);
+  line-height: 1.9; margin-bottom: 2.5rem;
+}
+.contact-pitch strong { color: var(--text); }
+
+.contact-email-btn {
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  background: var(--accent);
+  color: #fff; font-family: var(--mono); font-size: 0.85rem;
+  font-weight: 500;
+  padding: 1rem 2rem;
+  border-radius: var(--radius);
+  text-decoration: none;
+  margin-bottom: 2.5rem;
+  transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+  box-shadow: 0 0 0 0 var(--glow);
+}
+.contact-email-btn:hover {
+  background: var(--accent2);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px var(--glow);
+}
+
+.contact-links {
+  display: flex; justify-content: center;
+  flex-wrap: wrap; gap: 1rem;
+  margin-bottom: 3rem;
+}
+
+.contact-link {
+  display: flex; align-items: center; gap: 0.6rem;
+  font-family: var(--mono); font-size: 0.8rem;
+  color: var(--muted);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.7rem 1.25rem;
+  text-decoration: none;
+  transition: border-color var(--transition), color var(--transition), transform var(--transition);
+}
+.contact-link:hover { border-color: var(--accent2); color: var(--accent2); transform: translateY(-2px); }
+
+.contact-availability {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  font-family: var(--mono); font-size: 0.72rem;
+  color: #4ade80;
+  border: 1px solid rgba(74,222,128,0.2);
+  border-radius: 999px;
+  padding: 0.4rem 1rem;
+  background: rgba(74,222,128,0.05);
+}
+.contact-availability::before {
+  content: '';
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: #4ade80;
+  animation: pulse 2s infinite;
+}
+
+/* ─── FOOTER ─────────────────────────────────────────────────── */
+footer {
+  position: relative; z-index: 1;
+  border-top: 1px solid var(--border);
+  padding: 2rem 3rem;
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 1rem;
+}
+footer p { font-family: var(--mono); font-size: 0.72rem; color: var(--muted); }
+
+/* ─── ANIMATIONS ─────────────────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+
+/* ─── RESPONSIVE ─────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  nav { padding: 1rem 1.5rem; }
+  .nav-links { display: none; }
+  section { padding: 4rem 1.5rem; }
+  .hero-inner { padding: 0 1.5rem; }
+  .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+  .flagship-grid { grid-template-columns: 1fr; }
+  .concept-grid { grid-template-columns: 1fr 1fr; }
+  .projects-grid { grid-template-columns: 1fr; }
+  .hero-stats { gap: 2rem; }
+  footer { padding: 1.5rem; flex-direction: column; text-align: center; }
+}
+
+@media (max-width: 560px) {
+  .flagship-header { padding: 2rem; }
+  .concept-grid { grid-template-columns: 1fr; }
+  .hero h1 { font-size: 3rem; }
+}
 </style>
 </head>
 <body>
 
+<!-- NAV -->
 <nav>
-  <a href="#" class="nav-logo">JB.dev</a>
+  <a href="#" class="nav-logo">jermiah.dev</a>
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
-    <li><a href="#skills">Skills</a></li>
+    <li><a href="#stack">Stack</a></li>
     <li><a href="#projects">Projects</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
+  <a href="mailto:bookerjermiah8@gmail.com" class="nav-cta">Hire Me →</a>
 </nav>
 
 <!-- HERO -->
-<section class="hero">
-  <div class="hero-content">
-    <div class="hero-tag">Frontend UI Engineer · Minnesota · Open to Remote</div>
-    <h1>Jermiah<br><em>Booker</em></h1>
-    <p class="hero-desc">
-      Building fast, intuitive, and responsive web interfaces.
-      Passionate about clean UI, smooth interactions, and production‑ready code.
-      Currently leveling up with React, TypeScript &amp; Node.js.
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">Available for remote roles · Frontend UI Engineer</div>
+    <h1>
+      <span class="line1">Jermiah </span><br>
+      <span class="line2">Booker.</span>
+    </h1>
+    <p class="hero-sub">
+      I build <strong>fast, accessible, production-ready interfaces</strong> with React and JavaScript.
+      Based in Minnesota — shipping clean UI, integrating real APIs, and writing code
+      that works in the real world.
     </p>
     <div class="hero-actions">
-      <a href="#projects" class="btn-primary">View Projects ↓</a>
-      <a href="https://www.linkedin.com/in/jermiah-booker" target="_blank" class="btn-ghost">LinkedIn →</a>
-      <a href="https://github.com/tony34x" target="_blank" class="btn-ghost">GitHub →</a>
+      <a href="#projects" class="btn-primary">View My Work ↓</a>
+      <a href="mailto:bookerjermiah8@gmail.com" class="btn-ghost">Let's Talk →</a>
+      <a href="https://github.com/tony34x" target="_blank" class="btn-ghost">GitHub ↗</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <span class="hero-stat-num">7+</span>
+        <span class="hero-stat-label">Projects shipped</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-num">10+</span>
+        <span class="hero-stat-label">Technologies</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-num">100%</span>
+        <span class="hero-stat-label">Remote ready</span>
+      </div>
     </div>
   </div>
-</section>
+</div>
 
 <!-- MARQUEE -->
-<div class="marquee-wrap">
+<div class="marquee-section">
   <div class="marquee-track">
-    <div class="marquee-item">JavaScript <span>✦</span></div>
     <div class="marquee-item">React <span>✦</span></div>
+    <div class="marquee-item">JavaScript ES6+ <span>✦</span></div>
+    <div class="marquee-item">TypeScript <span>✦</span></div>
+    <div class="marquee-item">Node.js <span>✦</span></div>
     <div class="marquee-item">HTML5 <span>✦</span></div>
     <div class="marquee-item">CSS3 <span>✦</span></div>
-    <div class="marquee-item">Node.js <span>✦</span></div>
-    <div class="marquee-item">TypeScript <span>✦</span></div>
-    <div class="marquee-item">Git <span>✦</span></div>
+    <div class="marquee-item">REST APIs <span>✦</span></div>
+    <div class="marquee-item">Git & GitHub <span>✦</span></div>
+    <div class="marquee-item">Vite <span>✦</span></div>
     <div class="marquee-item">Figma <span>✦</span></div>
-    <div class="marquee-item">Webpack <span>✦</span></div>
-    <div class="marquee-item">Tailwind <span>✦</span></div>
-    <div class="marquee-item">Netlify <span>✦</span></div>
     <div class="marquee-item">Vercel <span>✦</span></div>
-    <!-- duplicate for seamless loop -->
-    <div class="marquee-item">JavaScript <span>✦</span></div>
+    <div class="marquee-item">Netlify <span>✦</span></div>
     <div class="marquee-item">React <span>✦</span></div>
+    <div class="marquee-item">JavaScript ES6+ <span>✦</span></div>
+    <div class="marquee-item">TypeScript <span>✦</span></div>
+    <div class="marquee-item">Node.js <span>✦</span></div>
     <div class="marquee-item">HTML5 <span>✦</span></div>
     <div class="marquee-item">CSS3 <span>✦</span></div>
-    <div class="marquee-item">Node.js <span>✦</span></div>
-    <div class="marquee-item">TypeScript <span>✦</span></div>
-    <div class="marquee-item">Git <span>✦</span></div>
+    <div class="marquee-item">REST APIs <span>✦</span></div>
+    <div class="marquee-item">Git & GitHub <span>✦</span></div>
+    <div class="marquee-item">Vite <span>✦</span></div>
     <div class="marquee-item">Figma <span>✦</span></div>
-    <div class="marquee-item">Webpack <span>✦</span></div>
-    <div class="marquee-item">Tailwind <span>✦</span></div>
-    <div class="marquee-item">Netlify <span>✦</span></div>
     <div class="marquee-item">Vercel <span>✦</span></div>
+    <div class="marquee-item">Netlify <span>✦</span></div>
   </div>
 </div>
 
 <!-- ABOUT -->
 <section id="about">
-  <div class="section-label">01 — About</div>
-  <h2 class="section-title">Who I am</h2>
+  <div class="section-eyebrow">01 — About</div>
+  <h2 class="section-title">Built to ship.</h2>
   <div class="about-grid">
-    <div class="about-text fade-up">
-      <p>I'm a <strong>Frontend UI Engineer</strong> based in Minnesota, currently in the TripleTen Software Engineering bootcamp and actively building production-ready web applications.</p>
-      <p>My focus is on creating interfaces that feel as good as they look — <strong>responsive, accessible, and fast</strong>. I care deeply about the details: smooth transitions, consistent spacing, and code that other developers can actually read.</p>
-      <p>I'm expanding into full-stack development with <strong>Node.js and TypeScript</strong>, and I'm actively seeking remote roles where I can contribute and grow.</p>
+    <div class="about-text reveal">
+      <p>
+        I'm a <strong>Frontend UI Engineer</strong> based in Minnesota, currently completing the
+        TripleTen Software Engineering Bootcamp. I don't just write code — I build
+        interfaces that users actually enjoy interacting with.
+      </p>
+      <p>
+        My edge is <strong>speed and adaptability</strong>. I use AI-assisted development tools
+        like GitHub Copilot and ChatGPT as part of my workflow — not as a crutch, but as a
+        force multiplier. I move fast, I understand what I ship, and I can explain every
+        line.
+      </p>
+      <p>
+        My current focus is <strong>React and full-stack development</strong> — building
+        component-based UIs, integrating live APIs, managing state, and writing backend
+        routes with Node.js and Express. I care about responsive design, accessibility,
+        and code other engineers can actually maintain.
+      </p>
+      <p>
+        I'm actively seeking a <strong>remote frontend role</strong> where I can contribute
+        from day one, grow with the team, and ship features that make a real difference.
+      </p>
+      <div class="about-tags">
+        <span class="about-tag">React</span>
+        <span class="about-tag">JavaScript</span>
+        <span class="about-tag">TypeScript</span>
+        <span class="about-tag">Node.js</span>
+        <span class="about-tag">REST APIs</span>
+        <span class="about-tag">AI-assisted Dev</span>
+        <span class="about-tag">Responsive UI</span>
+        <span class="about-tag">Open to Remote</span>
+      </div>
     </div>
-    <div class="stat-row fade-up" style="transition-delay: 0.15s;">
-      <div class="stat">
-        <span class="stat-num">7+</span>
-        <span class="stat-label">Projects shipped</span>
+    <div class="about-right">
+      <div class="about-card reveal reveal-delay-1">
+        <span class="about-card-icon">⚡</span>
+        <div class="about-card-title">Fast & Adaptable</div>
+        <div class="about-card-desc">I pick up new tools quickly and ship production-style work. AI-assisted workflows mean I move faster without cutting corners.</div>
       </div>
-      <div class="stat">
-        <span class="stat-num">8+</span>
-        <span class="stat-label">Technologies used</span>
+      <div class="about-card reveal reveal-delay-2">
+        <span class="about-card-icon">🎯</span>
+        <div class="about-card-title">UI/UX Focused</div>
+        <div class="about-card-desc">I care about the details — spacing, transitions, accessibility, and code that feels as good as it looks on screen.</div>
       </div>
-      <div class="stat">
-        <span class="stat-num">100%</span>
-        <span class="stat-label">Remote-ready</span>
+      <div class="about-card reveal reveal-delay-3">
+        <span class="about-card-icon">🔗</span>
+        <div class="about-card-title">API & Full-Stack Ready</div>
+        <div class="about-card-desc">I integrate live data, handle async flows, and build both the frontend and backend pieces of a feature.</div>
+      </div>
+      <div class="about-card reveal reveal-delay-3">
+        <span class="about-card-icon">📈</span>
+        <div class="about-card-title">Mission-Driven</div>
+        <div class="about-card-desc">I'm not just looking for any job — I want to build something meaningful, grow my craft, and contribute to a team that ships great products.</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- SKILLS -->
-<section id="skills" class="skills-section">
-  <div class="section-label">02 — Skills</div>
-  <h2 class="section-title">Tools of the trade</h2>
-  <div class="skills-grid">
-    <div class="skill-cell fade-up"><span class="skill-icon">⚡</span><div class="skill-name">JavaScript</div><div class="skill-type">Language</div></div>
-    <div class="skill-cell fade-up"><span class="skill-icon">🔷</span><div class="skill-name">TypeScript</div><div class="skill-type">Language</div></div>
-    <div class="skill-cell fade-up"><span class="skill-icon">⚛️</span><div class="skill-name">React</div><div class="skill-type">Framework</div></div>
-    <div class="skill-cell fade-up"><span class="skill-icon">🌐</span><div class="skill-name">HTML5</div><div class="skill-type">Markup</div></div>
-    <div class="skill-cell fade-up"><span class="skill-icon">🎨</span><div class="skill-name">CSS3</div><div class="skill-type">Styling</div></div>
-    <div class="skill-cell fade-up"><span class="skill-icon">💨</span><div class="skill-name">Tailwind</div><div class="skill-type">CSS Framework</div></div>
-    <div class="skill-cell fade-up"><span class="skill-icon">🟢</span><div class="skill-name">Node.js</div><div class="skill-type">Backend (learning)</div></div>
-    <div class="skill-cell fade-up"><span class="skill-icon">🗄️</span><div class="skill-name">MySQL</div><div class="skill-type">Database</div></div>
-    <div class="skill-cell fade-up"><span class="skill-icon">🔧</span><div class="skill-name">Git &amp; GitHub</div><div class="skill-type">Version Control</div></div>
-    <div class="skill-cell fade-up"><span class="skill-icon">📦</span><div class="skill-name">Webpack</div><div class="skill-type">Bundler</div></div>
-    <div class="skill-cell fade-up"><span class="skill-icon">🎭</span><div class="skill-name">Figma</div><div class="skill-type">Design</div></div>
-    <div class="skill-cell fade-up"><span class="skill-icon">🚀</span><div class="skill-name">Netlify / Vercel</div><div class="skill-type">Deployment</div></div>
+<!-- TECH STACK -->
+<section id="stack" class="tech-section" style="max-width:100%;padding:6rem 0;">
+  <div style="max-width:1100px;margin:0 auto;padding:0 3rem;">
+    <div class="section-eyebrow">02 — Tech Stack</div>
+    <h2 class="section-title">Tools I work with.</h2>
+    <div class="tech-categories">
+      <div class="reveal">
+        <div class="tech-category-label">Frontend</div>
+        <div class="tech-pills">
+          <div class="tech-pill"><span class="pill-icon">⚛️</span> React <span class="pill-level">Core</span></div>
+          <div class="tech-pill"><span class="pill-icon">⚡</span> JavaScript ES6+ <span class="pill-level">Strong</span></div>
+          <div class="tech-pill"><span class="pill-icon">🔷</span> TypeScript <span class="pill-level">Learning</span></div>
+          <div class="tech-pill"><span class="pill-icon">🌐</span> HTML5 <span class="pill-level">Strong</span></div>
+          <div class="tech-pill"><span class="pill-icon">🎨</span> CSS3 <span class="pill-level">Strong</span></div>
+          <div class="tech-pill"><span class="pill-icon">💨</span> Tailwind CSS <span class="pill-level">Familiar</span></div>
+          <div class="tech-pill"><span class="pill-icon">⚡</span> Vite <span class="pill-level">Familiar</span></div>
+        </div>
+      </div>
+      <div class="reveal reveal-delay-1">
+        <div class="tech-category-label">Backend & APIs</div>
+        <div class="tech-pills">
+          <div class="tech-pill"><span class="pill-icon">🟢</span> Node.js <span class="pill-level">Learning</span></div>
+          <div class="tech-pill"><span class="pill-icon">🚂</span> Express <span class="pill-level">Learning</span></div>
+          <div class="tech-pill"><span class="pill-icon">🔗</span> REST APIs <span class="pill-level">Solid</span></div>
+          <div class="tech-pill"><span class="pill-icon">📦</span> JSON <span class="pill-level">Solid</span></div>
+        </div>
+      </div>
+      <div class="reveal reveal-delay-2">
+        <div class="tech-category-label">Tools & Workflow</div>
+        <div class="tech-pills">
+          <div class="tech-pill"><span class="pill-icon">🔧</span> Git <span class="pill-level">Daily</span></div>
+          <div class="tech-pill"><span class="pill-icon">🐙</span> GitHub <span class="pill-level">Daily</span></div>
+          <div class="tech-pill"><span class="pill-icon">▲</span> Vercel <span class="pill-level">Daily</span></div>
+          <div class="tech-pill"><span class="pill-icon">🚀</span> Netlify <span class="pill-level">Daily</span></div>
+          <div class="tech-pill"><span class="pill-icon">🎭</span> Figma <span class="pill-level">Familiar</span></div>
+          <div class="tech-pill"><span class="pill-icon">📦</span> Webpack <span class="pill-level">Familiar</span></div>
+        </div>
+      </div>
+      <div class="reveal reveal-delay-3">
+        <div class="tech-category-label">AI-Assisted Development</div>
+        <div class="tech-pills">
+          <div class="tech-pill"><span class="pill-icon">🤖</span> GitHub Copilot</div>
+          <div class="tech-pill"><span class="pill-icon">💬</span> ChatGPT / Claude</div>
+          <div class="tech-pill"><span class="pill-icon">♿</span> Accessibility</div>
+          <div class="tech-pill"><span class="pill-icon">📱</span> Responsive Design</div>
+          <div class="tech-pill"><span class="pill-icon">🎯</span> UI/UX Fundamentals</div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
 <!-- PROJECTS -->
-<section id="projects">
-  <div class="section-label">03 — Projects</div>
-  <h2 class="section-title">Selected work</h2>
+<section id="projects" class="projects-section">
+  <div class="section-eyebrow">03 — Projects</div>
+  <h2 class="section-title">What I've built.</h2>
+
+  <!-- FLAGSHIP -->
+  <div class="flagship reveal">
+    <div class="flagship-header">
+      <div>
+        <div class="flagship-badge">⭐ Flagship Project</div>
+        <div class="flagship-title">WTWR — What to Wear?</div>
+        <p class="flagship-desc">
+          A full-stack React application that fetches live weather data and intelligently
+          recommends clothing based on real-time temperature and conditions. Users can
+          manage a personal wardrobe, toggle temperature units, and get context-aware
+          suggestions — all in a clean, responsive UI.
+        </p>
+      </div>
+      <div class="flagship-links">
+        <a href="https://github.com/tony34x/se_project_react" target="_blank" class="btn-ghost">GitHub ↗</a>
+        <a href="https://github.com/tony34x/se_project_react" target="_blank" class="btn-primary">Live Demo ↗</a>
+      </div>
+    </div>
+    <div class="flagship-body">
+      <div class="flagship-grid">
+        <div>
+          <div class="flagship-block-title">What I built</div>
+          <ul class="feature-list">
+            <li>Live weather API integration with real-time temperature and location data</li>
+            <li>Dynamic clothing card filtering by weather type (hot, warm, cold)</li>
+            <li>React component architecture with props and state management</li>
+            <li>Responsive layout that works across all screen sizes</li>
+            <li>Temperature unit toggle (°F / °C)</li>
+            <li>Modal popups for adding and managing clothing items</li>
+          </ul>
+        </div>
+        <div>
+          <div class="flagship-block-title">Tech used</div>
+          <div class="flagship-tags" style="margin-bottom:1.5rem;">
+            <span class="tag">React</span>
+            <span class="tag">JavaScript</span>
+            <span class="tag">Weather API</span>
+            <span class="tag">CSS Modules</span>
+            <span class="tag">Vite</span>
+            <span class="tag">State Management</span>
+            <span class="tag">Responsive Design</span>
+          </div>
+          <div class="flagship-block-title">Key Features</div>
+          <ul class="feature-list">
+            <li>Real-time weather fetch on load</li>
+            <li>Filtered clothing recommendations</li>
+            <li>Add / remove wardrobe items</li>
+            <li>Clean, accessible UI</li>
+          </ul>
+        </div>
+      </div>
+      <div style="margin-top:1.5rem;border-radius:12px;overflow:hidden;border:1px solid var(--border);">
+        <img src="wtwr-screenshot.jpeg" alt="WTWR — What to Wear app screenshot showing weather dashboard with clothing recommendations" style="width:100%;display:block;" />
+      </div>
+    </div>
+  </div>
+
+  <!-- PROJECT GRID -->
   <div class="projects-grid">
 
-    <a class="project-card fade-up" href="https://userprofilemanager2.netlify.app" target="_blank">
-      <div class="project-num">01</div>
-      <div class="project-title">User Profile Manager</div>
-      <p class="project-desc">Modern interface for viewing and editing user profiles with dynamic updates and a fully responsive layout. Built with real-world UX patterns.</p>
-      <div class="project-tags">
-        <span class="tag">JavaScript</span>
-        <span class="tag">CSS</span>
-        <span class="tag">API</span>
-        <span class="tag">Netlify</span>
+    <div class="project-card reveal">
+      <div class="project-card-num">02</div>
+      <div class="project-card-title">User Profile Manager</div>
+      <p class="project-card-desc">Production-style UI for viewing, editing, and managing user profiles with real-time DOM updates, form validation, and a fully responsive layout.</p>
+      <div class="project-card-built">
+        <strong>What I built</strong>
+        Dynamic profile editing, live DOM updates without page reload, responsive card layout, API-ready data handling.
       </div>
-    </a>
-
-    <a class="project-card fade-up" href="https://github.com/tony34x/se_project_todo-app" target="_blank" style="transition-delay: 0.07s;">
-      <div class="project-num">02</div>
-      <div class="project-title">Task Manager App</div>
-      <p class="project-desc">Interactive JavaScript app for creating, tracking, and completing tasks with local data persistence. Focused on usability and clean state management.</p>
-      <div class="project-tags">
-        <span class="tag">JavaScript</span>
-        <span class="tag">LocalStorage</span>
-        <span class="tag">DOM</span>
+      <div class="project-card-tags">
+        <span class="tag">JavaScript</span><span class="tag">CSS</span><span class="tag">REST API</span><span class="tag">DOM</span>
       </div>
-    </a>
-
-    <a class="project-card fade-up" href="https://project-2-sandy-beta.vercel.app" target="_blank" style="transition-delay: 0.14s;">
-      <div class="project-num">03</div>
-      <div class="project-title">Portfolio Landing Page</div>
-      <p class="project-desc">Card-based personal portfolio showcasing professional introduction and project highlights. Built to pixel-perfect design specs with clean HTML &amp; CSS.</p>
-      <div class="project-tags">
-        <span class="tag">HTML</span>
-        <span class="tag">CSS</span>
-        <span class="tag">Vercel</span>
+      <div class="screenshot-placeholder" style="padding:1.2rem;font-size:0.72rem;">
+        <strong>📸 Add screenshot here</strong>
+        Desktop view of profile cards (replace with &lt;img&gt; tag)
       </div>
-    </a>
-
-    <a class="project-card fade-up" href="https://project-1-stage-3.vercel.app" target="_blank" style="transition-delay: 0.21s;">
-      <div class="project-num">04</div>
-      <div class="project-title">Triple Peaks Library</div>
-      <p class="project-desc">Fully responsive webpage built to match a professional design brief using semantic HTML and CSS. Demonstrated strong attention to layout precision.</p>
-      <div class="project-tags">
-        <span class="tag">HTML</span>
-        <span class="tag">CSS</span>
-        <span class="tag">Responsive</span>
+      <div class="project-card-links">
+        <a href="https://github.com/tony34x/se_project_spots" target="_blank" class="project-link">GitHub ↗</a>
+        <a href="https://userprofilemanager2.netlify.app" target="_blank" class="project-link">Live Demo ↗</a>
       </div>
-    </a>
+    </div>
 
-    <a class="project-card fade-up" href="https://coffeeshoplandingpage3.netlify.app" target="_blank" style="transition-delay: 0.28s;">
-      <div class="project-num">05</div>
-      <div class="project-title">Coffeeshop Landing Page</div>
-      <p class="project-desc">Visually polished static site following a professional design brief. Demonstrates clean layout construction and consistent visual hierarchy.</p>
-      <div class="project-tags">
-        <span class="tag">HTML</span>
-        <span class="tag">CSS</span>
-        <span class="tag">Netlify</span>
+    <div class="project-card reveal reveal-delay-1">
+      <div class="project-card-num">03</div>
+      <div class="project-card-title">Task Manager App</div>
+      <p class="project-card-desc">Interactive task management application with persistent local storage, status toggling, and clean UX patterns for creating and completing tasks.</p>
+      <div class="project-card-built">
+        <strong>What I built</strong>
+        Add/complete/delete tasks, localStorage persistence so data survives page refresh, clean state management in vanilla JS.
       </div>
-    </a>
-
-    <a class="project-card fade-up" href="https://github.com/tony34x/project_spots" target="_blank" style="transition-delay: 0.35s;">
-      <div class="project-num">06</div>
-      <div class="project-title">Project Spots</div>
-      <p class="project-desc">A clean web interface for managing and updating user profiles with editable sections and a user-friendly UI focused on smooth interaction flows.</p>
-      <div class="project-tags">
-        <span class="tag">CSS</span>
-        <span class="tag">JavaScript</span>
-        <span class="tag">UX</span>
+      <div class="project-card-tags">
+        <span class="tag">JavaScript</span><span class="tag">LocalStorage</span><span class="tag">OOP</span><span class="tag">DOM</span>
       </div>
-    </a>
-
-    <a class="project-card fade-up" href="https://github.com/tony34x/se_project_react" target="_blank" style="transition-delay: 0.42s;">
-      <div class="project-num">07</div>
-      <div class="project-title">WTWR — What to Wear?</div>
-      <p class="project-desc">React app that fetches live weather data and recommends clothing based on current conditions. Displays real-time temperature and location, and filters clothing cards dynamically by weather type.</p>
-      <div class="project-tags">
-        <span class="tag">React</span>
-        <span class="tag">Weather API</span>
-        <span class="tag">Components</span>
-        <span class="tag">State</span>
+      <div class="screenshot-placeholder" style="padding:1.2rem;font-size:0.72rem;">
+        <strong>📸 Add screenshot here</strong>
+        Task list UI with completed items visible
       </div>
-    </a>
+      <div class="project-card-links">
+        <a href="https://github.com/tony34x/se_project_todo-app" target="_blank" class="project-link">GitHub ↗</a>
+      </div>
+    </div>
 
+    <div class="project-card reveal reveal-delay-2">
+      <div class="project-card-num">04</div>
+      <div class="project-card-title">Project Spots</div>
+      <p class="project-card-desc">A photo-sharing style interface with editable profile sections, card-based layout, interactive like functionality, and smooth form validation.</p>
+      <div class="project-card-built">
+        <strong>What I built</strong>
+        Inline profile editing, like/unlike cards, modal forms with validation, responsive grid layout.
+      </div>
+      <div class="project-card-tags">
+        <span class="tag">JavaScript</span><span class="tag">CSS</span><span class="tag">Forms</span><span class="tag">Modals</span>
+      </div>
+      <div class="screenshot-placeholder" style="padding:1.2rem;font-size:0.72rem;">
+        <strong>📸 Add screenshot here</strong>
+        Profile page with photo cards and edit modal open
+      </div>
+      <div class="project-card-links">
+        <a href="https://github.com/tony34x/project_spots" target="_blank" class="project-link">GitHub ↗</a>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-card-num">05</div>
+      <div class="project-card-title">Triple Peaks Library</div>
+      <p class="project-card-desc">Pixel-perfect responsive webpage built to match a professional design brief, demonstrating strong HTML semantics, CSS layout mastery, and mobile-first thinking.</p>
+      <div class="project-card-built">
+        <strong>What I built</strong>
+        Semantic HTML structure, CSS Flexbox/Grid layout, media queries, cross-browser consistency.
+      </div>
+      <div class="project-card-tags">
+        <span class="tag">HTML5</span><span class="tag">CSS3</span><span class="tag">Responsive</span><span class="tag">Semantic</span>
+      </div>
+      <div class="project-card-links">
+        <a href="https://project-1-stage-3.vercel.app" target="_blank" class="project-link">Live Demo ↗</a>
+      </div>
+    </div>
+
+    <div class="project-card reveal reveal-delay-1">
+      <div class="project-card-num">06</div>
+      <div class="project-card-title">Coffeeshop Landing Page</div>
+      <p class="project-card-desc">Visually polished marketing landing page built from a professional design spec. Showcases consistent visual hierarchy, clean layout, and brand-focused design execution.</p>
+      <div class="project-card-built">
+        <strong>What I built</strong>
+        Multi-section landing page, custom fonts & colors, embedded form, smooth visual hierarchy.
+      </div>
+      <div class="project-card-tags">
+        <span class="tag">HTML5</span><span class="tag">CSS3</span><span class="tag">Design</span><span class="tag">Netlify</span>
+      </div>
+      <div class="project-card-links">
+        <a href="https://coffeeshoplandingpage3.netlify.app" target="_blank" class="project-link">Live Demo ↗</a>
+      </div>
+    </div>
+
+    <div class="project-card reveal reveal-delay-2">
+      <div class="project-card-num">07</div>
+      <div class="project-card-title">Portfolio Landing Page</div>
+      <p class="project-card-desc">Card-based personal portfolio built to a design spec — my first complete multi-section webpage demonstrating foundational HTML/CSS skills and clean code structure.</p>
+      <div class="project-card-built">
+        <strong>What I built</strong>
+        Hero section, skills grid, project cards, contact section — all from scratch.
+      </div>
+      <div class="project-card-tags">
+        <span class="tag">HTML5</span><span class="tag">CSS3</span><span class="tag">Vercel</span>
+      </div>
+      <div class="project-card-links">
+        <a href="https://project-2-sandy-beta.vercel.app" target="_blank" class="project-link">Live Demo ↗</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FLAGSHIP CONCEPT -->
+<section class="concept-section" style="max-width:100%;padding:6rem 0;">
+  <div style="max-width:1100px;margin:0 auto;padding:0 3rem;">
+    <div class="section-eyebrow">04 — Next Project</div>
+    <h2 class="section-title">What I'm building next.</h2>
+    <div class="concept-card reveal">
+      <div style="margin-bottom:1.5rem;">
+        <div style="font-family:var(--mono);font-size:0.72rem;color:var(--accent2);margin-bottom:0.5rem;">Concept: DevBoard</div>
+        <div style="font-size:1.4rem;font-weight:700;margin-bottom:0.75rem;">A full-stack developer productivity dashboard</div>
+        <p style="color:var(--muted);font-size:0.92rem;max-width:620px;line-height:1.8;">
+          Authentication + GitHub API + task tracking + weather widget + a personal notes section.
+          Multi-page React app with a Node/Express backend, JWT auth, and a clean dashboard UI.
+          This will be my most complete full-stack project.
+        </p>
+      </div>
+      <div class="concept-grid">
+        <div class="concept-block">
+          <span class="concept-block-icon">🔐</span>
+          <div class="concept-block-title">Authentication</div>
+          <div class="concept-block-desc">JWT-based login/signup with protected routes and persistent sessions.</div>
+        </div>
+        <div class="concept-block">
+          <span class="concept-block-icon">🐙</span>
+          <div class="concept-block-title">GitHub API Integration</div>
+          <div class="concept-block-desc">Pull live repo stats, commit activity, and pinned projects directly from the GitHub API.</div>
+        </div>
+        <div class="concept-block">
+          <span class="concept-block-icon">📋</span>
+          <div class="concept-block-title">Task Dashboard</div>
+          <div class="concept-block-desc">Kanban-style task management with drag-and-drop and persistent backend storage.</div>
+        </div>
+        <div class="concept-block">
+          <span class="concept-block-icon">🌤️</span>
+          <div class="concept-block-title">Live Weather Widget</div>
+          <div class="concept-block-desc">Real-time local weather fetched on login — building on WTWR experience.</div>
+        </div>
+        <div class="concept-block">
+          <span class="concept-block-icon">⚛️</span>
+          <div class="concept-block-title">React Multi-Page UI</div>
+          <div class="concept-block-desc">React Router, reusable components, global state with Context API or Redux.</div>
+        </div>
+        <div class="concept-block">
+          <span class="concept-block-icon">🚂</span>
+          <div class="concept-block-title">Node/Express Backend</div>
+          <div class="concept-block-desc">REST API with Express, MongoDB, and full CRUD operations for user data.</div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
 <!-- CONTACT -->
-<section id="contact" class="contact-section">
-  <div class="section-label">04 — Contact</div>
-  <h2 class="section-title">Let's build<br>something together</h2>
-  <div class="contact-inner">
-    <div class="contact-text fade-up">
-      <p>I'm actively seeking remote frontend or full-stack roles. If you're building something interesting and need a developer who cares about the craft, reach out — I'd love to hear from you.</p>
-      <a href="mailto:bookerjermiah8@gmail.com" class="btn-primary">Send an Email →</a>
-    </div>
-    <div class="contact-links fade-up" style="transition-delay: 0.1s;">
-      <a href="https://www.linkedin.com/in/jermiah-booker" target="_blank" class="contact-link">
-        <span class="contact-link-icon">💼</span>
-        linkedin.com/in/jermiah-booker
+<section id="contact" class="contact-section" style="max-width:100%;padding:6rem 0;">
+  <div style="max-width:1100px;margin:0 auto;padding:0 3rem;">
+    <div class="section-eyebrow" style="justify-content:center;">05 — Contact</div>
+    <h2 class="section-title" style="text-align:center;">Let's work together.</h2>
+    <div class="contact-inner">
+      <p class="contact-pitch">
+        I'm actively looking for my first professional <strong>frontend or full-stack role</strong>.
+        If you're building something meaningful and need a developer who ships clean UI,
+        integrates APIs, and cares about the craft — I'd love to hear from you.
+      </p>
+      <a href="mailto:bookerjermiah8@gmail.com" class="contact-email-btn">
+        ✉️ bookerjermiah8@gmail.com
       </a>
-      <a href="https://github.com/tony34x" target="_blank" class="contact-link">
-        <span class="contact-link-icon">🐙</span>
-        github.com/tony34x
-      </a>
-      <a href="mailto:bookerjermiah8@gmail.com" class="contact-link">
-        <span class="contact-link-icon">✉️</span>
-        bookerjermiah8@gmail.com
-      </a>
-      <a href="https://vercel.com/tony34xs-projects" target="_blank" class="contact-link">
-        <span class="contact-link-icon">▲</span>
-        vercel.com/tony34xs-projects
-      </a>
+      <div class="contact-links">
+        <a href="https://www.linkedin.com/in/jermiah-booker" target="_blank" class="contact-link">
+          💼 LinkedIn
+        </a>
+        <a href="https://github.com/tony34x" target="_blank" class="contact-link">
+          🐙 GitHub
+        </a>
+        <a href="https://jermiah-booker-portfolio-website.vercel.app" target="_blank" class="contact-link">
+          🌐 Portfolio
+        </a>
+      </div>
+      <div class="contact-availability">Open to remote opportunities — available now</div>
     </div>
   </div>
 </section>
 
+<!-- FOOTER -->
 <footer>
-  <p>© 2026 Jermiah Booker</p>
-  <p>Frontend UI Engineer · Minnesota</p>
+  <p>© 2026 Jermiah Booker — Frontend UI Engineer</p>
+  <p>Built with HTML · CSS · JavaScript · 💜</p>
+  <p style="color:var(--accent2);">Open to remote roles</p>
 </footer>
 
 <script>
+  // Scroll reveal
   const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-  }, { threshold: 0.12 });
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
 
-  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Active nav highlight on scroll
+  const sections = document.querySelectorAll('section[id], div[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 120) current = s.id;
+    });
+    navLinks.forEach(a => {
+      a.style.color = a.getAttribute('href') === `#${current}` ? 'var(--accent2)' : '';
+    });
+  });
 </script>
 
 </body>
