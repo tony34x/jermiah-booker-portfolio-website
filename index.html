@@ -13,8 +13,8 @@
     --bg: #0d0d0d;
     --surface: #161616;
     --border: #2a2a2a;
-    --accent: #c8f557;
-    --accent-dim: #8cb03a;
+    --accent: #a855f7;
+    --accent-dim: #7c3aed;
     --text: #f0ede6;
     --muted: #888;
     --serif: 'DM Serif Display', Georgia, serif;
@@ -39,8 +39,8 @@
     position: fixed;
     inset: 0;
     background-image:
-      linear-gradient(rgba(200,245,87,0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(200,245,87,0.03) 1px, transparent 1px);
+      linear-gradient(rgba(168,85,247,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(168,85,247,0.03) 1px, transparent 1px);
     background-size: 60px 60px;
     pointer-events: none;
     z-index: 0;
@@ -152,7 +152,7 @@
     align-items: center;
     gap: 0.5rem;
     background: var(--accent);
-    color: #0d0d0d;
+    color: #ffffff;
     font-family: var(--mono);
     font-size: 0.8rem;
     font-weight: 500;
@@ -163,7 +163,7 @@
     transition: background 0.2s, transform 0.2s;
   }
 
-  .btn-primary:hover { background: #d8ff66; transform: translateY(-2px); }
+  .btn-primary:hover { background: #b76ef9; transform: translateY(-2px); }
 
   .btn-ghost {
     display: inline-flex;
@@ -580,11 +580,11 @@
     </div>
     <div class="stat-row fade-up" style="transition-delay: 0.15s;">
       <div class="stat">
-        <span class="stat-num">6+</span>
+        <span class="stat-num">7+</span>
         <span class="stat-label">Projects shipped</span>
       </div>
       <div class="stat">
-        <span class="stat-num">5+</span>
+        <span class="stat-num">8+</span>
         <span class="stat-label">Technologies used</span>
       </div>
       <div class="stat">
@@ -685,6 +685,18 @@
         <span class="tag">CSS</span>
         <span class="tag">JavaScript</span>
         <span class="tag">UX</span>
+      </div>
+    </a>
+
+    <a class="project-card fade-up" href="https://github.com/tony34x/se_project_react" target="_blank" style="transition-delay: 0.42s;">
+      <div class="project-num">07</div>
+      <div class="project-title">WTWR — What to Wear?</div>
+      <p class="project-desc">React app that fetches live weather data and recommends clothing based on current conditions. Displays real-time temperature and location, and filters clothing cards dynamically by weather type.</p>
+      <div class="project-tags">
+        <span class="tag">React</span>
+        <span class="tag">Weather API</span>
+        <span class="tag">Components</span>
+        <span class="tag">State</span>
       </div>
     </a>
 
